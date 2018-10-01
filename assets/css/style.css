@@ -1,12 +1,31 @@
+@font-face {
+  font-family: "arcade";
+  src: url("../fonts/ka1.ttf");
+}
+
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: black;
+}
+
+h1 {
+  font-family: 'arcade';
+  color: white;
+  font-size: 50px;
+}
+
 .arcade-character {
-  width: 176px;
+  width: 416px;
+  margin: 30px 0;
 }
 
 .led {
   margin: 0;
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   border: 1px solid black;
 }
 
@@ -15,5 +34,38 @@
 }
 
 .led--off {
-  background: white;
+  background: black;
+}
+
+button {
+  height: 50px;
+  width: 100px;
+  border-radius: 6px;
+}
+
+select,
+button {
+  border: 1px solid transparent;
+  font-weight: bold;
+  font-family: 'arcade';
+  color: white;
+}
+
+.generate {
+  background: orange;
+}
+
+.save {
+  background: purple;
+}
+
+.play {
+  background: green;
+}
+
+.pattern-list {
+  width: 50%;
+  height: 50px;
+  background: blue;
+  margin-top: 20px
 }

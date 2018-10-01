@@ -22,6 +22,7 @@
       this.arcadeCharacterElement = document.querySelector('.arcade-character');
       this.generateCharacter = document.querySelector('.generate');
       this.saveCharacter = document.querySelector('.save');
+      this.playCharacters = document.querySelector('.play');
       this.patternList = document.querySelector('.pattern-list');
 
       const self = this;
@@ -31,10 +32,10 @@
       this.acWidth = 20;
       this.character = '';
       this.generated = false;
-      this.characters = [];
+      this.looping = false;
       this.createArcadeCharacterMatrix();
-      this.showSavedPatterns();
-
+      this.getSavedPatterns();
+      this.getSelectedPattern();
 
       //disable save button when there is no character generated
       this.saveCharacter.disabled = true;
@@ -85,16 +86,47 @@
       this.showPattern(pattern);
     },
 
-    showSavedPatterns: function () {
-      tempStr = '';
+    getSavedPatterns: function () {
+      let tempStr = '';
       self = this;
-      i = 0
+      let i = 0;
+      let characters = [];
       this.database.ref('patterns').on('value', function (snap) {
         snap.forEach(function (child) {
-          tempStr += `<option value="${child.val()}">pattern ${i}</option>`;
+          characters.push(child.val());
+          tempStr += `<option value="${child.val()}">Pattern ${i}</option>`;
           i++;
-          self.patternList.innerHTML = tempStr;
-        })
+          self.patternList.innerHTML = '<option disabled selected value> Choose a pattern </option>' + tempStr;
+        });
+      })
+
+      this.playPatternLoop(characters);
+    },
+
+    playPatternLoop: function (pattern) {
+      const self = this;
+      let loop;
+      this.playCharacters.addEventListener('click', function () {
+        let j = 0;
+        console.log(pattern);
+        if (!self.looping) {
+          loop = setInterval(() => {
+            if (j >= pattern.length) {
+              j = 0;
+            } else {
+              self.showPattern(pattern[j]);
+              j++;
+            }
+          }, 1000);
+          self.looping = true;
+          self.playCharacters.innerHTML = 'Stop';
+
+        } else {
+          clearTimeout(loop);
+          self.looping = false;
+          self.playCharacters.innerHTML = 'Start';
+        }
+        console.log(self.looping);
       })
     },
 
@@ -115,9 +147,17 @@
       }
     },
 
+    getSelectedPattern: function () {
+      const self = this;
+      console.log(this.patternList.value);
+      this.patternList.addEventListener('change', function () {
+        self.showPattern(self.patternList.value);
+      })
+    },
+
     savePatternToDB: function (pattern) {
       this.database.ref().child('patterns').push().set(pattern);
-      console.log('pattern saved ' + pattern);
+      alert('pattern saved: ' + pattern);
     },
 
 

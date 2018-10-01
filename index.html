@@ -12,12 +12,14 @@
 <body>
   <h1>Random arcade generator</h1>
   <div class="arcade-character"></div>
-  <button class="generate">Generate</button>
-  <button class="save">Save</button>
-  <select name="" class="pattern-list">
-    
+  <div class="actions">
+    <button class="generate">Generate</button>
+    <button class="save">Save</button>
+    <button class="play">Start</button>
+  </div>
+  <select class="pattern-list">
+    <option disabled selected value> Choose a pattern </option>
   </select>
-  <button>Play</button>
 
 
   <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
