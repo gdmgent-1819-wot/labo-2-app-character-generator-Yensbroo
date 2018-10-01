@@ -1,0 +1,19 @@
+.arcade-character {
+  width: 176px;
+}
+
+.led {
+  margin: 0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.led--on {
+  background: red;
+}
+
+.led--off {
+  background: white;
+}
