@@ -92,6 +92,8 @@
       let i = 0;
       let characters = [];
       this.database.ref('patterns').on('value', function (snap) {
+        tempStr = '';
+        i = 0;
         snap.forEach(function (child) {
           characters.push(child.val());
           tempStr += `<option value="${child.val()}">Pattern ${i}</option>`;
